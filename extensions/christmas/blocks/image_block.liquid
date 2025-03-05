@@ -1,0 +1,37 @@
+<html>
+<head></head>
+<body>
+      {% if block.settings.show_snow %}
+                <div id="snow"></div>
+      {% endif %}
+</body>
+</html>
+{% schema %}
+{
+  "name": "Animation Effect",
+  "target": "body",
+  "stylesheet": "snow.css",
+  "javascript": "snow.js",
+  "settings": [
+    
+       {
+      "type": "checkbox",
+      "id": "show_snow",
+      "default": true,
+      "label": "Show Snow"
+    },
+    {
+      "type": "color",
+      "id": "snow-color",
+      "label": "Snow Color",
+      "default": "#ffffff"
+    }
+   
+  ]
+}
+{% endschema %}
+<style>
+  #snow i{
+    color:{{ block.settings.snow-color }};
+  }
+</style>

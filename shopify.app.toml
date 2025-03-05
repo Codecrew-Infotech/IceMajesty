@@ -1,0 +1,28 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "IceMajesty"
+client_id = "d38855706e540a884343e6e7a1ac534d"
+application_url = "https://ice-majesty.fly.dev"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = ""
+
+[auth]
+redirect_urls = [ "https://ice-majesty.fly.dev/auth/callback" ]
+
+[webhooks]
+api_version = "2024-01"
+
+  [webhooks.privacy_compliance]
+  customer_deletion_url = "https://ice-majesty.fly.dev/webhook"
+  customer_data_request_url = "https://ice-majesty.fly.dev/webhook"
+  shop_deletion_url = "https://ice-majesty.fly.dev/webhook"
+
+[pos]
+embedded = false
+
+[build]
+automatically_update_urls_on_dev = false
+dev_store_url = "demo-cc-app.myshopify.com"
