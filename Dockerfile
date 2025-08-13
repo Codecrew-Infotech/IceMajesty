@@ -1,19 +1,35 @@
+# Use Node 18 as base
 FROM node:18
 
+# Expose port for Railway
 EXPOSE 3000
 
+# Set working directory
 WORKDIR /app
-COPY . .
 
+# Copy only package.json + lock file first for caching
+COPY package*.json ./
+
+# Copy prisma schema (needed for build + migrations)
+COPY prisma ./prisma
+
+# Set environment
 ENV NODE_ENV=production
 
+# Install dependencies
 RUN npm install
-# Remove CLI packages since we don't need them in production by default.
-# Remove this line if you want to run CLI commands in your container.
-RUN npm remove @shopify/app @shopify/cli
+
+# Copy rest of the application
+COPY . .
+
+# Build the application
 RUN npm run build
 
-# You'll probably want to remove this in production, it's here to make it easier to test things!
-RUN rm -f prisma/dev.sqlite
+# OPTIONAL: Remove dev-only CLI packages AFTER build
+RUN npm remove @shopify/app @shopify/cli || true
 
+# If you were using SQLite in dev, remove it for prod
+RUN rm -f prisma/dev.sqlite || true
+
+# Set start command for Railway
 CMD ["npm", "run", "docker-start"]
