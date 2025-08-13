@@ -1,6 +1,6 @@
-FROM node:18
+FROM node:16
 
-# Install OpenSSL
+# Install OpenSSL (needed for some Shopify CLI dependencies)
 RUN apt-get update && apt-get install -y openssl
 
 EXPOSE 3000
@@ -9,15 +9,20 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
+# Copy only package files first for caching
 COPY package.json package-lock.json* ./
 
-RUN npm i --omit=dev && npm cache clean --force
-# Remove CLI packages since we don't need them in production by default.
-# Remove this line if you want to run CLI commands in your container.
-RUN npm remove @shopify/cli
+# Install production dependencies only
+RUN npm install --omit=dev && npm cache clean --force
 
+# Remove CLI packages (optional for smaller image)
+RUN npm remove @shopify/cli || true
+
+# Copy the rest of the source code
 COPY . .
 
+# Build the app
 RUN npm run build
 
+# Start the app
 CMD ["npm", "run", "docker-start"]
