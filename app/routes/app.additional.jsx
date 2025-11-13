@@ -12,11 +12,13 @@ import { authenticate } from "../shopify.server";
 import { useLoaderData } from "@remix-run/react";
 
 export const loader = async ({ request }) => {
-  const { admin } = await authenticate.admin(request);
-  // await authenticate.admin(request);
+  const { admin, session } = await authenticate.admin(request);
 
-  return admin;
+  const shop = session.shop;
+
+  return { shop };
 };
+
 
 export default function AdditionalPage() {
   const data = useLoaderData();

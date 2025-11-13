@@ -1,10 +1,23 @@
 <html>
-<head></head>
-<body>
-      {% if block.settings.show_snow %}
-                <div id="snow"></div>
+  <head></head>
+  <body>
+    {% if block.settings.show_snow %}
+      {% assign location = block.settings.custom_location %}
+
+      {% if location == '1' and template.name == 'index' %}
+        <div id="snow"></div>
+
+      {% elsif location == '2' and template.name == 'product' %}
+        <div id="snow"></div>
+
+      {% elsif location == '3' and template.name == 'collection' %}
+        <div id="snow"></div>
+
+      {% elsif location == '4' %}
+        <div id="snow"></div>
       {% endif %}
-</body>
+    {% endif %}
+  </body>
 </html>
 {% schema %}
 {
@@ -13,12 +26,35 @@
   "stylesheet": "snow.css",
   "javascript": "snow.js",
   "settings": [
-    
-       {
+    {
       "type": "checkbox",
       "id": "show_snow",
       "default": true,
       "label": "Show Snow"
+    },
+    {
+      "type": "select",
+      "id": "custom_location",
+      "label": "Custom Location",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Home Page"
+        },
+        {
+          "value": "2",
+          "label": "Product Page"
+        },
+        {
+          "value": "3",
+          "label": "Collection Page"
+        },
+        {
+          "value": "4",
+          "label": "All Pages"
+        }
+      ]
     },
     {
       "type": "color",
@@ -26,7 +62,6 @@
       "label": "Snow Color",
       "default": "#ffffff"
     }
-   
   ]
 }
 {% endschema %}
