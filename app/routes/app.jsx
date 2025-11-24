@@ -22,6 +22,7 @@ export default function App() {
         <Link to="/app" rel="home">
           Home
         </Link>
+        <Link to="/app/storeeffects">Store Effects</Link>
         <Link to="/app/additional">Installation Guide</Link>
       </ui-nav-menu>
       <Outlet />

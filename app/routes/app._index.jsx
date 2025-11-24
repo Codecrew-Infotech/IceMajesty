@@ -39,7 +39,7 @@ export const action = async ({ request }) => {
       mutation populateProduct($input: ProductInput!) {
         productCreate(input: $input) {
           product {
-            id
+            id  
             title
             handle
             status
