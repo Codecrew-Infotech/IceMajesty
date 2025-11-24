@@ -1,17 +1,18 @@
-FROM node:18-alpine
+FROM node:18
 
-RUN apk add --no-cache openssl
-
+# Set working directory
 WORKDIR /app
 
-ENV NODE_ENV=production
-
+# Copy package files
 COPY package*.json ./
 
-RUN npm install --production=false && npm cache clean --force
+# Install everything (dev deps needed for build)
+RUN npm install
 
+# Copy source
 COPY . .
 
+# Build
 RUN npm run build
 
 EXPOSE 3000
