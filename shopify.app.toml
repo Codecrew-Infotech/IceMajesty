@@ -2,7 +2,7 @@
 
 name = "IceMajesty"
 client_id = "d38855706e540a884343e6e7a1ac534d"
-application_url = "https://ice-majesty.fly.dev"
+application_url = "https://icemajesty-production.up.railway.app"
 embedded = true
 
 [access_scopes]
@@ -10,15 +10,15 @@ embedded = true
 scopes = ""
 
 [auth]
-redirect_urls = [ "https://ice-majesty.fly.dev/auth/callback" ]
+redirect_urls = [ "https://icemajesty-production.up.railway.app/auth/callback" ]
 
 [webhooks]
 api_version = "2024-01"
 
   [webhooks.privacy_compliance]
-  customer_deletion_url = "https://ice-majesty.fly.dev/webhook"
-  customer_data_request_url = "https://ice-majesty.fly.dev/webhook"
-  shop_deletion_url = "https://ice-majesty.fly.dev/webhook"
+  customer_deletion_url = "https://icemajesty-production.up.railway.app/webhook"
+  customer_data_request_url = "https://icemajesty-production.up.railway.app/webhook"
+  shop_deletion_url = "https://icemajesty-production.up.railway.app/webhook"
 
 [pos]
 embedded = false
