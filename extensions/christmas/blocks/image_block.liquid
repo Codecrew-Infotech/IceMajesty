@@ -1,24 +1,26 @@
-<html>
-  <head></head>
-  <body>
-    {% if block.settings.show_snow %}
-      {% assign location = block.settings.custom_location %}
+{% if block.settings.show_snow %}
+  {% assign location = block.settings.custom_location %}
+  {% assign should_render = false %}
 
-      {% if location == '1' and template.name == 'index' %}
-        <div id="snow"></div>
+  {% if location == '1' and template.name == 'index' %}
+    {% assign should_render = true %}
+  {% elsif location == '2' and template.name == 'product' %}
+    {% assign should_render = true %}
+  {% elsif location == '3' and template.name == 'collection' %}
+    {% assign should_render = true %}
+  {% elsif location == '4' %}
+    {% assign should_render = true %}
+  {% endif %}
 
-      {% elsif location == '2' and template.name == 'product' %}
-        <div id="snow"></div>
-
-      {% elsif location == '3' and template.name == 'collection' %}
-        <div id="snow"></div>
-
-      {% elsif location == '4' %}
-        <div id="snow"></div>
-      {% endif %}
-    {% endif %}
-  </body>
-</html>
+  {% if should_render %}
+    <div id="snow"></div>
+    <style>
+      #snow i{
+        color: {{ block.settings.snow-color }};
+      }
+    </style>
+  {% endif %}
+{% endif %}
 {% schema %}
 {
   "name": "Animation Effect",
@@ -65,8 +67,4 @@
   ]
 }
 {% endschema %}
-<style>
-  #snow i{
-    color:{{ block.settings.snow-color }};
-  }
-</style>
+
