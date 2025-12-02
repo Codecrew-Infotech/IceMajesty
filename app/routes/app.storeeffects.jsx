@@ -1,19 +1,23 @@
 import { useState, useEffect } from 'react';
 import { Card, BlockStack, Checkbox, RangeSlider, Button } from '@shopify/polaris';
-import rocket from "../assets/rocket.gif";
+import rocket from "../assets/rocket.png";
+import diya from "../assets/diya.gif";
+import sparkle from "../assets/sparkle.gif";
+import marigold from "../assets/marigold.png";
+import santa from "../assets/santa.gif";
 
 // Effect image assets
 const effectAssets = {
-  diya: 'https://files.resumeily.com/shopify/dakaas-diya.gif',
-  sparkle: 'https://files.resumeily.com/shopify/dakaas-sparkel.gif',
-  marigold: 'https://cdn.shopify.com/extensions/a58d0be2-b9c6-432f-9e25-9b806a49e22f/0.0.0/assets/dakaas-marigold.png',
+  diya: diya,
+  sparkle: sparkle,
+  marigold: marigold,
   pumpkin: 'https://cdn.shopify.com/extensions/a58d0be2-b9c6-432f-9e25-9b806a49e22f/0.0.0/assets/dakaas-hallowin.png',
-  santa: 'https://files.resumeily.com/shopify/santa_sleigh.gif',
+  santa: santa,
   witch: 'https://files.resumeily.com/shopify/witch.gif',
   bat: 'https://files.resumeily.com/shopify/bat.gif',
   summersale: 'https://cdn.shopify.com/extensions/a58d0be2-b9c6-432f-9e25-9b806a49e22f/0.0.0/assets/dakaas-hotsale.png',
   bigsale: 'https://cdn.shopify.com/extensions/a58d0be2-b9c6-432f-9e25-9b806a49e22f/0.0.0/assets/dakaas-bigsale.png',
-  diwalirocket: {rocket},
+  diwalirocket: rocket,
   newyear: 'https://files.resumeily.com/shopify/dakaas-new-year.webp',
 };
 
@@ -47,7 +51,7 @@ export default function EffectsCard() {
   const [sparkleCount, setSparkleCount] = useState(50);
   const [flowerCount, setFlowerCount] = useState(30);
   const [snowCount, setSnowCount] = useState(100);
-  const [santaCount, setSantaCount] = useState(1);
+  const [santaCount, setSantaCount] = useState(3);
   const [pumpkinCount, setPumpkinCount] = useState(8);
   const [batCount, setBatCount] = useState(12);
   const [witchCount, setWitchCount] = useState(1);
