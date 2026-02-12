@@ -22,7 +22,7 @@ export const loader = async ({ request }) => {
 
 export default function AdditionalPage() {
   const data = useLoaderData();
-  console.log("data", data);
+  // console.log("data", data);
   return (
     <Page>
       <ui-title-bar title="Installation Guide" />
