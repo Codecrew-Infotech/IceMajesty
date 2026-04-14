@@ -20,7 +20,7 @@ import db from "../db.server";
 import LoadingSpinner from "./app.spinner";
 
 export const loader = async ({ request }) => {
-    const { session } = await authenticate.admin(request);
+    const { session, admin } = await authenticate.admin(request);
     const { shop } = session;
 
     let config;
@@ -39,10 +39,53 @@ export const loader = async ({ request }) => {
                     animationSize: 20,
                 },
             });
+
+            // Sync to Metafields for first load
+            const shopResponse = await admin.graphql(
+                `#graphql
+                query getShopId {
+                  shop {
+                    id
+                  }
+                }`
+            );
+            const shopData = await shopResponse.json();
+            const shopId = shopData?.data?.shop?.id;
+
+            if (shopId) {
+                const metafieldValue = JSON.stringify({
+                    custom_location: "allpages",
+                    animation_type: "snowfall",
+                    animation_count: 80,
+                    animation_size: 20,
+                });
+
+                await admin.graphql(
+                    `#graphql
+                    mutation CreateMetafield($metafieldsSetInput: [MetafieldsSetInput!]!) {
+                      metafieldsSet(metafields: $metafieldsSetInput) {
+                        metafields { id }
+                      }
+                    }`,
+                    {
+                        variables: {
+                            metafieldsSetInput: [
+                                {
+                                    namespace: "icemajesty",
+                                    key: "settings",
+                                    type: "json",
+                                    value: metafieldValue,
+                                    ownerId: shopId,
+                                },
+                            ],
+                        },
+                    }
+                );
+            }
         }
     } catch (error) {
-        console.error("Database error in loader:", error);
-        // Fallback to default config if DB fails
+        console.error("Error in loader during initialization:", error);
+        // Fallback to default config if DB fails or Metafield sync fails
         config = {
             shop,
             customLocation: "allpages",
