@@ -36,7 +36,7 @@ export const loader = async ({ request }) => {
                     customLocation: "allpages",
                     animationType: "snowfall",
                     animationCount: 80,
-                    animationSize: 30,
+                    animationSize: 20,
                 },
             });
         }
@@ -48,7 +48,7 @@ export const loader = async ({ request }) => {
             customLocation: "allpages",
             animationType: "snowfall",
             animationCount: 80,
-            animationSize: 30,
+            animationSize: 20,
         };
     }
 
@@ -63,7 +63,7 @@ export const action = async ({ request }) => {
     const customLocation = formData.get("customLocation");
     const animationType = formData.get("animationType");
     const animationCount = parseInt(formData.get("animationCount"), 10) || 80;
-    const animationSize = parseInt(formData.get("animationSize"), 10) || 30;
+    const animationSize = parseInt(formData.get("animationSize"), 10) || 20;
 
     try {
         await db.configuration.upsert({
@@ -141,14 +141,14 @@ export default function Configurations() {
     const [customLocation, setCustomLocation] = useState(config.customLocation || "allpages");
     const [animationType, setAnimationType] = useState(config.animationType || "snowfall");
     const [animationCount, setAnimationCount] = useState(config.animationCount || 80);
-    const [animationSize, setAnimationSize] = useState(config.animationSize || 50);
+    const [animationSize, setAnimationSize] = useState(config.animationSize || 20);
 
     // Sync state when config changes (after successful save)
     useEffect(() => {
         setCustomLocation(config.customLocation || "allpages");
         setAnimationType(config.animationType || "snowfall");
         setAnimationCount(config.animationCount || 80);
-        setAnimationSize(config.animationSize || 30);
+        setAnimationSize(config.animationSize || 20);
     }, [config]);
 
     // Show Toast on success

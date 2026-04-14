@@ -27,6 +27,6 @@ model Configuration {
   customLocation String   @default("allpages")
   animationType  String   @default("snowfall")
   animationCount Int      @default(80)
-  animationSize  Int      @default(30)
+  animationSize  Int      @default(20)
   updatedAt      DateTime @updatedAt
 }

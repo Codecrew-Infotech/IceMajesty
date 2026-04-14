@@ -8,7 +8,7 @@ window.onload = function () {
 
     var animationType = temp.getAttribute("data-type") || "snowfall";
     var animationCount = parseInt(temp.getAttribute("data-count"), 10) || 80;
-    var animationSize = parseInt(temp.getAttribute("data-size"), 10) || 30;
+    var animationSize = parseInt(temp.getAttribute("data-size"), 10) || 20;
 
     var emojiMap = {
         snowfall: ["❄️"],
