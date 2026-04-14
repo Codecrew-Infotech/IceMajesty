@@ -228,7 +228,7 @@ export default function Configurations() {
     return isLoadingPage ? (
         <LoadingSpinner />
     ) : (
-        <Page title="Snowfall Animation Settings">
+        <Page title="Animation Settings">
             <style>{`
             .Polaris-TextField--disabled { 
                 color: #000000; 
