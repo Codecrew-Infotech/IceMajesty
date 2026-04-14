@@ -31,7 +31,6 @@ export const loader = async ({ request }) => {
         config = await db.configuration.create({
             data: {
                 shop,
-                showSnow: true,
                 customLocation: "allpages",
                 animationType: "snowfall",
                 animationCount: 80,
