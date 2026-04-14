@@ -334,9 +334,9 @@ export default function Index() {
                     <Button size="large" variant="primary" url="/app/configurations">
                       Configure
                     </Button>
-                    <Button size="large" url="/app/additional">
+                    {/* <Button size="large" url="/app/additional">
                       How to use
-                    </Button>
+                    </Button> */}
                   </InlineStack>
                 </Box>
               </BlockStack>

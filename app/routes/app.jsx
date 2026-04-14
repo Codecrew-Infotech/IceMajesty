@@ -23,7 +23,7 @@ export default function App() {
           Home
         </Link>
         <Link to="/app/configurations">Configuration</Link>
-        <Link to="/app/additional">Installation Guide</Link>
+        {/* <Link to="/app/additional">Installation Guide</Link> */}
       </ui-nav-menu>
       <Outlet />
     </AppProvider>
