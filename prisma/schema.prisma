@@ -20,3 +20,13 @@ model Session {
   accessToken String
   userId      BigInt?
 }
+
+model Configuration {
+  id             Int      @id @default(autoincrement())
+  shop           String   @unique
+  customLocation String   @default("allpages")
+  animationType  String   @default("snowfall")
+  animationCount Int      @default(80)
+  animationSize  Int      @default(30)
+  updatedAt      DateTime @updatedAt
+}

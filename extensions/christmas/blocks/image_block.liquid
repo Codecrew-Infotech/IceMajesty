@@ -1,70 +1,27 @@
-{% if block.settings.show_snow %}
-  {% assign location = block.settings.custom_location %}
-  {% assign should_render = false %}
+{% assign settings = shop.metafields.icemajesty.settings.value %}
+{% assign location = settings.custom_location %}
+{% assign should_render = false %}
 
-  {% if location == '1' and template.name == 'index' %}
-    {% assign should_render = true %}
-  {% elsif location == '2' and template.name == 'product' %}
-    {% assign should_render = true %}
-  {% elsif location == '3' and template.name == 'collection' %}
-    {% assign should_render = true %}
-  {% elsif location == '4' %}
-    {% assign should_render = true %}
-  {% endif %}
-
-  {% if should_render %}
-    <div id="snow"></div>
-    <style>
-      #snow i{
-        color: {{ block.settings.snow-color }};
-      }
-    </style>
-  {% endif %}
+{% if location == 'homepage' and template.name == 'index' %}
+  {% assign should_render = true %}
+{% elsif location == 'productpage' and template.name == 'product' %}
+  {% assign should_render = true %}
+{% elsif location == 'collectionpage' and template.name == 'collection' %}
+  {% assign should_render = true %}
+{% elsif location == 'allpages' %}
+  {% assign should_render = true %}
 {% endif %}
+
+{% if should_render %}
+  <div id="snow" data-type="{{ settings.animation_type | default: 'snowfall' }}" data-count="{{ settings.animation_count | default: 80 }}" data-size="{{ settings.animation_size | default: 30 }}"></div>
+{% endif %}
+
 {% schema %}
 {
   "name": "Animation Effect",
   "target": "body",
   "stylesheet": "snow.css",
   "javascript": "snow.js",
-  "settings": [
-    {
-      "type": "checkbox",
-      "id": "show_snow",
-      "default": true,
-      "label": "Show Snow"
-    },
-    {
-      "type": "select",
-      "id": "custom_location",
-      "label": "Custom Location",
-      "default": "1",
-      "options": [
-        {
-          "value": "1",
-          "label": "Home Page"
-        },
-        {
-          "value": "2",
-          "label": "Product Page"
-        },
-        {
-          "value": "3",
-          "label": "Collection Page"
-        },
-        {
-          "value": "4",
-          "label": "All Pages"
-        }
-      ]
-    },
-    {
-      "type": "color",
-      "id": "snow-color",
-      "label": "Snow Color",
-      "default": "#ffffff"
-    }
-  ]
+  "settings": []
 }
 {% endschema %}
-

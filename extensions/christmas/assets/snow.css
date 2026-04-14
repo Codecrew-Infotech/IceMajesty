@@ -6,6 +6,10 @@
     left: 0;
     right: 0;
     z-index: 99;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 #snow i {
@@ -29,8 +33,9 @@
 
 @-webkit-keyframes falling {
     0% {
-        -webkit-transform: translate3d(0, 0, 0) rotate(0deg);
+        -webkit-transform: translate3d(0, 0, 0) rotate(-90deg);
     }
+
     100% {
         -webkit-transform: translate3d(30px, 1000px, 0) rotate(360deg);
     }
@@ -38,8 +43,9 @@
 
 @keyframes falling {
     0% {
-        transform: translate3d(0, 0, 0) rotate(0deg);
+        transform: translate3d(0, 0, 0) rotate(-90deg);
     }
+
     100% {
         transform: translate(30px, 1000px) rotate(360deg);
     }
@@ -156,3 +162,41 @@
 #snow i:nth-of-type(7n+1) {
     opacity: 0.8;
 }
+
+/* Holi color variations */
+#snow i.holi {
+    filter: blur(2px);
+    transition: filter 0.3s ease;
+}
+
+#snow i.holi:nth-of-type(5n+1) {
+    color: #FF1493;
+}
+
+/* Deep Pink */
+#snow i.holi:nth-of-type(5n+2) {
+    color: #FFD700;
+}
+
+/* Gold */
+#snow i.holi:nth-of-type(5n+3) {
+    color: #32CD32;
+}
+
+/* Lime Green */
+#snow i.holi:nth-of-type(5n+4) {
+    color: #1E90FF;
+}
+
+/* Dodger Blue */
+#snow i.holi:nth-of-type(5n+5) {
+    color: #8A2BE2;
+}
+
+/* Blue Violet */
+
+#snow i.holi:nth-of-type(5n+5) {
+    color: #8A2BE2;
+}
+
+/* Blue Violet */
