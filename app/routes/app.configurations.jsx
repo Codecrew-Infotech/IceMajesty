@@ -23,20 +23,33 @@ export const loader = async ({ request }) => {
     const { session } = await authenticate.admin(request);
     const { shop } = session;
 
-    let config = await db.configuration.findUnique({
-        where: { shop },
-    });
-
-    if (!config) {
-        config = await db.configuration.create({
-            data: {
-                shop,
-                customLocation: "allpages",
-                animationType: "snowfall",
-                animationCount: 80,
-                animationSize: 30,
-            },
+    let config;
+    try {
+        config = await db.configuration.findUnique({
+            where: { shop },
         });
+
+        if (!config) {
+            config = await db.configuration.create({
+                data: {
+                    shop,
+                    customLocation: "allpages",
+                    animationType: "snowfall",
+                    animationCount: 80,
+                    animationSize: 30,
+                },
+            });
+        }
+    } catch (error) {
+        console.error("Database error in loader:", error);
+        // Fallback to default config if DB fails
+        config = {
+            shop,
+            customLocation: "allpages",
+            animationType: "snowfall",
+            animationCount: 80,
+            animationSize: 30,
+        };
     }
 
     return json({ config });
@@ -52,11 +65,16 @@ export const action = async ({ request }) => {
     const animationCount = parseInt(formData.get("animationCount"), 10) || 80;
     const animationSize = parseInt(formData.get("animationSize"), 10) || 30;
 
-    await db.configuration.upsert({
-        where: { shop },
-        update: { customLocation, animationType, animationCount, animationSize },
-        create: { shop, customLocation, animationType, animationCount, animationSize },
-    });
+    try {
+        await db.configuration.upsert({
+            where: { shop },
+            update: { customLocation, animationType, animationCount, animationSize },
+            create: { shop, customLocation, animationType, animationCount, animationSize },
+        });
+    } catch (error) {
+        console.error("Database error in action:", error);
+        return json({ error: "Failed to save configuration to database" }, { status: 500 });
+    }
 
     // More robust GraphQL query format
     const shopResponse = await admin.graphql(
