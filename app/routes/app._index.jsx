@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { json } from "@remix-run/node";
-import {
-  useLoaderData,
-  useNavigation,
-} from "@remix-run/react";
+import { useLoaderData, useNavigation } from "@remix-run/react";
 import {
   Page,
   Layout,
@@ -39,13 +36,13 @@ export const loader = async ({ request }) => {
               }
             }
           }
-        }`,
+        }`
     );
 
     const data = await response.json();
 
     const mainTheme = data?.data?.themes?.edges?.find(
-      (theme) => theme?.node?.role === "MAIN",
+      (theme) => theme?.node?.role === "MAIN"
     );
 
     const themeId = mainTheme?.node?.id;
@@ -58,12 +55,12 @@ export const loader = async ({ request }) => {
           "Content-Type": "application/json",
           "X-Shopify-Access-Token": session?.accessToken,
         },
-      },
+      }
     );
 
     if (!responseOfShop.ok) {
       throw new Error(
-        `Failed to fetch shop details: ${responseOfShop.status} ${responseOfShop.statusText}`,
+        `Failed to fetch shop details: ${responseOfShop.status} ${responseOfShop.statusText}`
       );
     }
 
@@ -84,7 +81,7 @@ export const loader = async ({ request }) => {
               "Content-Type": "application/json",
               "X-Shopify-Access-Token": session?.accessToken,
             },
-          },
+          }
         );
 
         if (appEmbedsResponse.ok) {
@@ -94,18 +91,17 @@ export const loader = async ({ request }) => {
           const currentBlocks = settingsData.current?.blocks || {};
 
           const appBlock = Object.values(currentBlocks).find(
-            (block) => block.type && block.type.includes("image_block"),
+            (block) => block.type && block.type.includes("image_block")
           );
 
           if (appBlock) {
             isAppEmbedded = Object.values(currentBlocks).some(
               (block) =>
-                block.type.includes("image_block") &&
-                block.disabled === false,
+                block.type.includes("image_block") && block.disabled === false
             );
             appEmbedDetails = {
               blockId: Object.keys(currentBlocks).find(
-                (key) => currentBlocks[key] === appBlock,
+                (key) => currentBlocks[key] === appBlock
               ),
               blockType: appBlock.type,
               settings: appBlock.settings || {},
@@ -186,9 +182,9 @@ export const action = async ({ request }) => {
 };
 
 export default function Index() {
-  const { shopDetails, shop, themeId, appID, isAppEmbedded, mainThemeName } = useLoaderData();
+  const { shopDetails, shop, themeId, appID, isAppEmbedded, mainThemeName } =
+    useLoaderData();
   const [shopOwnerName, setShopOwnerName] = useState("");
-
 
   const storeDomain = shopDetails?.shop?.myshopify_domain?.split(".")[0];
   const theme_id = themeId?.split("/")?.pop();
@@ -218,18 +214,10 @@ export default function Index() {
   ) : (
     <Page>
       <Layout>
-
         <Layout.Section>
           {isAppEmbedded && mainThemeName ? (
-            <Banner
-              title="App Embed Status"
-              tone="success"
-            >
-              <InlineStack
-                gap={200}
-                align="space-between"
-                blockAlign="center"
-              >
+            <Banner title="App Embed Status" tone="success">
+              <InlineStack gap={200} align="space-between" blockAlign="center">
                 <InlineStack
                   gap={200}
                   align="space-between"
@@ -242,10 +230,7 @@ export default function Index() {
               </InlineStack>
             </Banner>
           ) : (
-            <Banner
-              tone="warning"
-              title="Enable App Embed"
-            >
+            <Banner tone="warning" title="Enable App Embed">
               <InlineStack gap="200" align="space-between">
                 <Text>
                   Enable App Embeds to use the app featured in your store.
@@ -325,13 +310,18 @@ export default function Index() {
                 <Box>
                   <InlineStack align="center">
                     <Text as="p" variant="bodyLg">
-                      Boost your christmas with beautiful snowfall during the season.
+                      Boost your christmas with beautiful snowfall during the
+                      season.
                     </Text>
                   </InlineStack>
                 </Box>
                 <Box paddingBlockStart="100">
                   <InlineStack gap="200" align="center">
-                    <Button size="large" variant="primary" url="/app/configurations">
+                    <Button
+                      size="large"
+                      variant="primary"
+                      url="/app/configurations"
+                    >
                       Configure
                     </Button>
                     {/* <Button size="large" url="/app/additional">

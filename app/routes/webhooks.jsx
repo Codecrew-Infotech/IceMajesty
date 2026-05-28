@@ -19,8 +19,20 @@ export const action = async ({ request }) => {
 
       break;
     case "CUSTOMERS_DATA_REQUEST":
+      console.log(`Received customers data request for ${shop}`);
+      console.log(JSON.stringify(payload, null, 2));
+
     case "CUSTOMERS_REDACT":
+      console.log(`Received customers redact for ${shop}`);
+      console.log(JSON.stringify(payload, null, 2));
+
     case "SHOP_REDACT":
+      if (!session) {
+        return new Response("", { status: 400 });
+      }
+      console.log(`Received shop redact for ${shop}`);
+      console.log(JSON.stringify(payload, null, 2));
+
     default:
       throw new Response("Unhandled webhook topic", { status: 404 });
   }

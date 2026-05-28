@@ -22,12 +22,30 @@ const shopify = shopifyApp({
   webhooks: {
     APP_UNINSTALLED: {
       deliveryMethod: DeliveryMethod.Http,
-      callbackUrl: "/webhooks",
+      callbackUrl: "/webhooks/app/uninstalled",
+    },
+    CUSTOMERS_DATA_REQUEST: {
+      deliveryMethod: DeliveryMethod.Http,
+      callbackUrl: "/webhooks/customers/data_request",
+    },
+    CUSTOMERS_REDACT: {
+      deliveryMethod: DeliveryMethod.Http,
+      callbackUrl: "/webhooks/customers/redact",
+    },
+    SHOP_REDACT: {
+      deliveryMethod: DeliveryMethod.Http,
+      callbackUrl: "/webhooks/shop/redact",
     },
   },
   hooks: {
     afterAuth: async ({ session }) => {
-      shopify.registerWebhooks({ session });
+      console.log("Registering webhooks...");
+      try {
+        await shopify.registerWebhooks({ session });
+        console.log("Webhooks Registered Successfully");
+      } catch (error) {
+        console.log("Failed to register webhooks");
+      }
     },
   },
   future: {

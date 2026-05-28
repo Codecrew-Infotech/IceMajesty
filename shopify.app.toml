@@ -15,10 +15,21 @@ redirect_urls = [ "https://icemajesty-production.up.railway.app/auth/callback" ]
 [webhooks]
 api_version = "2024-01"
 
-  [webhooks.privacy_compliance]
-  customer_deletion_url = "https://icemajesty-production.up.railway.app/webhook"
-  customer_data_request_url = "https://icemajesty-production.up.railway.app/webhook"
-  shop_deletion_url = "https://icemajesty-production.up.railway.app/webhook"
+  [[webhooks.subscriptions]]
+  topics = [ "app/uninstalled" ]
+  uri = "/webhooks/app/uninstalled"
+
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/customers/data_request"
+  compliance_topics = [ "customers/data_request" ]
+
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/customers/redact"
+  compliance_topics = [ "customers/redact" ]
+
+  [[webhooks.subscriptions]]
+  uri = "/webhooks/shop/redact"
+  compliance_topics = [ "shop/redact" ]
 
 [pos]
 embedded = false
