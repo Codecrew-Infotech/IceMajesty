@@ -1,8 +1,9 @@
-FROM node:18
+FROM node:20
 
 WORKDIR /app
 
 COPY package*.json ./
+COPY patches/ ./patches/
 
 RUN npm install --legacy-peer-deps
 
